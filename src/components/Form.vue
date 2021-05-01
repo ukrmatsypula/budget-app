@@ -1,6 +1,6 @@
 <template>
   <ElCard class="form-card">
-    <ElForm :model="formData">
+    <ElForm :model="formData" ref="addItemForm" :rules="rules" lable-position="top">
       <ElFormItem label="Type" prop="type">
         <ElSelect
           class="type-select"
@@ -34,9 +34,28 @@ export default {
       comment: '',
       value: 0,
     },
+    rules: {
+      type: [
+        { required: true, message: 'Please select type', trigger: 'blur' }
+      ],
+      comment: [
+        { required: true, message: 'Please input comment', trigger: 'blur'}
+      ],
+      value: [
+        { required: true, message: 'Please input value', trigger: 'change'},
+        { type: 'number', message: 'Value must be a number', trigger: 'change'},
+      ],
+    },
   }),
   methods: {
-    onSubmit() {},
+    onSubmit() {
+      this.$refs.addItemForm.validate((valid) => {
+        if(valid) {
+          this.$emit('submitForm', { ...this.formData });
+          this.$refs.addItemForm.resetFields();
+        }
+      });
+    },
   },
 };
 </script>
