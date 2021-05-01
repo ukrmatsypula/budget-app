@@ -1,5 +1,6 @@
 <template>
   <div id="app">
+    <Form />
     <TotalBalance :total="totalBalance" />
     <BudgetList :list="list" @deleteItem="onDeleteItem" />
   </div>
@@ -8,12 +9,14 @@
 <script>
 import BudgetList from '@/components/BudgetList.vue';
 import TotalBalance from '@/components/TotalBalance.vue';
+import Form from '@/components/Form.vue';
 
 export default {
   name: 'App',
   components: {
     BudgetList,
     TotalBalance,
+    Form,
   },
   data: () => ({
     list: {
